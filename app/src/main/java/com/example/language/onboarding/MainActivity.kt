@@ -1,4 +1,4 @@
-package com.example.language.ui
+package com.example.language.onboarding
 
 import android.Manifest
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.language.R
-import com.example.language.ui.fragments.TellMeMoreFragment
+import com.example.language.onboarding.fragments.TellMeMoreFragment
 
 class MainActivity : AppCompatActivity() {
 

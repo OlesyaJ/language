@@ -4,83 +4,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/iv_wave"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="36dp"
         android:layout_marginTop="72dp"
-        android:text="Мне бы хотелось получше узнать тебя"
-        android:textColor="#3d3d3d"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:src="@drawable/ic_wave_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/iv_play"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="72dp"
+        android:src="@drawable/ic_baseline_play_circle_filled_24"
+        app:layout_constraintEnd_toStartOf="@id/tv_listen"
+        app:layout_constraintStart_toStartOf="@id/iv_wave"
+        app:layout_constraintTop_toBottomOf="@id/iv_wave" />
+
     <TextView
-        android:id="@+id/tv_subtitle"
-        android:layout_width="0dp"
+        android:id="@+id/tv_listen"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="36dp"
-        android:layout_marginTop="56dp"
-        android:text="Расскажи немного о себе"
+        android:text="Прослушать запись"
         android:textColor="#3d3d3d"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
-    <com.visualizer.amplitude.AudioRecordView
-        android:id="@+id/adv_recorder"
-        android:layout_width="0dp"
-        android:layout_height="108dp"
-        android:layout_marginHorizontal="36dp"
-        app:chunkAlignTo="center"
-        app:chunkColor="#2196F3"
-        app:chunkMaxHeight="108dp"
-        app:chunkMinHeight="4dp"
-        app:chunkRoundedCorners="true"
-        app:chunkSoftTransition="true"
-        app:chunkSpace="1dp"
-        app:chunkWidth="2dp"
-        app:layout_constraintBottom_toTopOf="@id/iv_round_outer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_subtitle">
-
-    </com.visualizer.amplitude.AudioRecordView>
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_round_outer"
-        android:layout_width="76dp"
-        android:layout_height="76dp"
-        android:layout_marginBottom="84dp"
-        android:background="?colorPrimaryVariant"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearance="@style/Theme.Language.CornerSize50Percent" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_round_inner"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="?colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@id/iv_round_outer"
-        app:layout_constraintEnd_toEndOf="@id/iv_round_outer"
-        app:layout_constraintStart_toStartOf="@id/iv_round_outer"
-        app:layout_constraintTop_toTopOf="@id/iv_round_outer"
-        app:shapeAppearance="@style/Theme.Language.CornerSize50Percent" />
+        app:layout_constraintBottom_toBottomOf="@id/iv_play"
+        app:layout_constraintEnd_toEndOf="@id/iv_wave"
+        app:layout_constraintStart_toEndOf="@id/iv_play"
+        app:layout_constraintTop_toTopOf="@id/iv_play" />
 
     <View
-        android:id="@+id/btn_push_to_speak"
+        android:id="@+id/btn_listen"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/iv_round_outer"
-        app:layout_constraintEnd_toEndOf="@id/iv_round_outer"
-        app:layout_constraintStart_toStartOf="@id/iv_round_outer"
-        app:layout_constraintTop_toTopOf="@id/iv_round_outer" />
+        app:layout_constraintBottom_toBottomOf="@id/iv_play"
+        app:layout_constraintEnd_toEndOf="@id/tv_listen"
+        app:layout_constraintStart_toStartOf="@id/iv_play"
+        app:layout_constraintTop_toTopOf="@id/iv_play" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_start_test"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="28dp"
+        android:text="Отправить"
+        app:layout_constraintBottom_toTopOf="@id/btn_i_know_my_level"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_i_know_my_level"
+        style="?materialButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="56dp"
+        android:text="Записать заново"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

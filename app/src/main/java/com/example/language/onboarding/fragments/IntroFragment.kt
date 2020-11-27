@@ -1,4 +1,4 @@
-package com.example.language.ui.fragments
+package com.example.language.onboarding.fragments
 
 import androidx.fragment.app.Fragment
 import com.example.language.R

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="36dp"
         android:layout_marginTop="72dp"
-        android:text="Привет, меня зовут Лиам!\nЯ помогу тебе заговорить на английском языке"
+        android:text="Мне бы хотелось получше узнать тебя"
         android:textColor="#3d3d3d"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -24,34 +24,63 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="36dp"
         android:layout_marginTop="56dp"
-        android:text="Мне бы"
+        android:text="Расскажи немного о себе"
         android:textColor="#3d3d3d"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_start_test"
+    <com.visualizer.amplitude.AudioRecordView
+        android:id="@+id/adv_recorder"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginBottom="28dp"
-        android:text="Начать тест"
-        app:layout_constraintBottom_toTopOf="@id/btn_i_know_my_level"
+        android:layout_height="108dp"
+        android:layout_marginHorizontal="36dp"
+        app:chunkAlignTo="center"
+        app:chunkColor="#2196F3"
+        app:chunkMaxHeight="108dp"
+        app:chunkMinHeight="4dp"
+        app:chunkRoundedCorners="true"
+        app:chunkSoftTransition="true"
+        app:chunkSpace="1dp"
+        app:chunkWidth="2dp"
+        app:layout_constraintBottom_toTopOf="@id/iv_round_outer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_subtitle">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_i_know_my_level"
-        style="?materialButtonOutlinedStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginBottom="56dp"
-        android:text="Я знаю свой уровень"
+    </com.visualizer.amplitude.AudioRecordView>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_round_outer"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_marginBottom="84dp"
+        android:background="?colorPrimaryVariant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearance="@style/Theme.Language.CornerSize50Percent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_round_inner"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="?colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/iv_round_outer"
+        app:layout_constraintEnd_toEndOf="@id/iv_round_outer"
+        app:layout_constraintStart_toStartOf="@id/iv_round_outer"
+        app:layout_constraintTop_toTopOf="@id/iv_round_outer"
+        app:shapeAppearance="@style/Theme.Language.CornerSize50Percent" />
+
+    <View
+        android:id="@+id/btn_push_to_speak"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_round_outer"
+        app:layout_constraintEnd_toEndOf="@id/iv_round_outer"
+        app:layout_constraintStart_toStartOf="@id/iv_round_outer"
+        app:layout_constraintTop_toTopOf="@id/iv_round_outer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

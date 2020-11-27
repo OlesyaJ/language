@@ -6,11 +6,11 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="36dp"
-        android:layout_marginTop="72dp"
-        android:text="Привет, меня зовут Лиам!\nЯ помогу тебе заговорить на английском языке"
+        android:layout_marginTop="60dp"
+        android:text="Выберите свой уровень"
         android:textColor="#3d3d3d"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -18,38 +18,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_subtitle"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/iv_lady"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="36dp"
-        android:layout_marginTop="56dp"
-        android:text="Мне бы"
-        android:textColor="#3d3d3d"
-        android:textSize="24sp"
+        android:layout_marginTop="72dp"
+        android:src="@drawable/ic_lady_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_start_test"
+        android:id="@+id/btn_beginner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="28dp"
-        android:text="Начать тест"
-        app:layout_constraintBottom_toTopOf="@id/btn_i_know_my_level"
+        android:text="Начинающий"
+        app:layout_constraintBottom_toTopOf="@id/btn_intermediate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_i_know_my_level"
-        style="?materialButtonOutlinedStyle"
+        android:id="@+id/btn_intermediate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="28dp"
+        android:text="Средний"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_advanced"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_advanced"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="56dp"
-        android:text="Я знаю свой уровень"
+        android:text="Продвинутый"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

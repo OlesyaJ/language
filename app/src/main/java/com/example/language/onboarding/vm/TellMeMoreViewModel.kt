@@ -1,4 +1,4 @@
-package com.example.language.ui.fragments
+package com.example.language.onboarding.vm
 
 import androidx.lifecycle.ViewModel
 import java.io.File

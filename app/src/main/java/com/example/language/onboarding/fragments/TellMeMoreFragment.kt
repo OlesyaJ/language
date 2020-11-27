@@ -1,4 +1,4 @@
-package com.example.language.ui.fragments
+package com.example.language.onboarding.fragments
 
 import android.animation.Animator
 import android.animation.ValueAnimator
@@ -12,6 +12,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.language.R
+import com.example.language.onboarding.vm.TellMeMoreViewModel
 import com.visualizer.amplitude.AudioRecordView
 import java.io.File
 import java.util.*
