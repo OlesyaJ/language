@@ -131,7 +131,11 @@ class LiamFragment : Fragment(R.layout.fragment_liam) {
     }
 
     private fun stopRecording() {
-        mediaRecorder.stop()
+        try {
+            mediaRecorder.stop()
+        } catch (ex: Exception) {
+            // as intended
+        }
         viewModel.onNewFileReady()
     }
 }

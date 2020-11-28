@@ -150,7 +150,11 @@ class TellMeMoreFragment : Fragment(R.layout.fragment_tell_me_more) {
     }
 
     private fun stopRecording() {
-        mediaRecorder.stop()
+        try {
+            mediaRecorder.stop()
+        } catch (ex: Exception) {
+            // as intended
+        }
         endTimer()
         navController.navigate(
             TellMeMoreFragmentDirections.actionTellMeMoreFragmentToListenFragment(

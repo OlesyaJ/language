@@ -183,7 +183,11 @@ class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
     }
 
     private fun stopRecording() {
-        mediaRecorder.stop()
+        try {
+            mediaRecorder.stop()
+        } catch (ex: Exception) {
+            // as intended
+        }
         endTimer()
         recorderView.recreate()
         viewModel.onNewFileReady()
