@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Прослушать запись"
+        android:text="Listen record"
         android:textColor="#3d3d3d"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="28dp"
-        android:text="Отправить"
+        android:text="Send"
         app:layout_constraintBottom_toTopOf="@id/btn_redo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="56dp"
-        android:text="Записать заново"
+        android:text="Record again"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

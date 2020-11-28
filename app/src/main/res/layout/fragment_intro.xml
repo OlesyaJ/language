@@ -19,14 +19,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:layout_width="213dp"
+        android:layout_height="221dp"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/kidfourth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
     <TextView
         android:id="@+id/tv_subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="36dp"
         android:layout_marginTop="32dp"
-        android:drawableTop="@drawable/liam"
-        android:drawablePadding="8dp"
         android:text="Let's begin with your interests then I will share my interests with you!"
         android:textColor="#084B80"
         android:textSize="24sp"

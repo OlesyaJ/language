@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/iv_police"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/kidthird"
+        android:layout_width="165dp"
+        android:layout_height="101dp"
         android:layout_marginTop="72dp"
-        android:src="@drawable/ic_police_1"
+        android:src="@drawable/kidthird"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,13 +20,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        android:text="Отлично!"
+        android:text="Great!"
         android:textColor="?colorPrimaryVariant"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_police" />
+        app:layout_constraintTop_toBottomOf="@id/kidthird" />
 
     <TextView
         android:id="@+id/tv_subtitle"
@@ -33,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="26dp"
         android:layout_marginTop="52dp"
-        android:text="У тебя хороший словарный запас и хорошее произношение.Нужно лишь немного практики и ты сможешь легко общаться на любую тему"
+        android:text="Wow! You have good vocabulary and good pronunciation. Just a little practice, you can easily communicate on any topic."
         android:textColor="#3d3d3d"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

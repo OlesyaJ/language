@@ -15,11 +15,11 @@ class ReadAloudViewModel : ViewModel() {
     private lateinit var cachePath: String
 
     private val textsToRead = mutableListOf<TextToRead>(
-        TextToRead(1, "title_1", "text_1"),
-        TextToRead(2, "title_2", "text_2"),
-        TextToRead(3, "title_3", "text_3"),
-        TextToRead(4, "title_4", "text_4"),
-        TextToRead(5, "title_5", "text_5")
+        TextToRead(1, "Read phrase", "Better to arrive late than not to come at all."),
+        TextToRead(2, "Read phrase", "Doing something poorly in order to save time or money"),
+        TextToRead(3, "Read phrase", "Thanks so much for cooking dinner. I really appreciate it."),
+        TextToRead(4, "Read phrase", "Excuse me sir, you dropped your wallet."),
+        TextToRead(5, "Read phrase", "I’m not sure if we should paint the room yellow or blue. What do you think?")
     )
 
     private val _currentTextPosition = MutableLiveData<TextPosition>()

@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.language.R
 import com.visualizer.amplitude.AudioRecordView
@@ -67,7 +68,7 @@ class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
             tvSubtitle.text = it.text
         }
         viewModel.currentTextPosition.observe(viewLifecycleOwner) {
-            tvTextCounter.text = "Текст ${it.count} из ${it.maxCount}"
+            tvTextCounter.text = "Text ${it.count} from ${it.maxCount}"
         }
         viewModel.navigation.observe(viewLifecycleOwner) {
             navController.navigate(it)
