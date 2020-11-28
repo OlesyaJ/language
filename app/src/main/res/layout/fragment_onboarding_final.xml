@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_start_test"
+        android:id="@+id/btn_done"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"

@@ -9,7 +9,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.language.R
 import com.visualizer.amplitude.AudioRecordView
@@ -18,22 +20,22 @@ import java.util.*
 import kotlin.math.roundToInt
 
 
-class TellMeMoreFragment : Fragment(R.layout.fragment_tell_me_more) {
+class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
+
+    private val viewModel by viewModels<ReadAloudViewModel>()
 
     private val navController by lazy { findNavController() }
-    private val tellMeMoreFile by lazy {
-        File(
-            requireContext().cacheDir.absolutePath,
-            "tell_me_more.mp3"
-        )
-    }
+    private lateinit var currentFile: File
 
     private var timer: Timer? = null
 
+    private lateinit var tvTitle: TextView
+    private lateinit var tvSubtitle: TextView
     private lateinit var btnPushToSpeak: View
     private lateinit var vInnerCircle: ImageView
     private lateinit var vOuterCircle: ImageView
     private lateinit var recorderView: AudioRecordView
+    private lateinit var tvTextCounter: TextView
 
     private var smallSize: Int = 0
     private var largeSize: Int = 0
@@ -41,12 +43,34 @@ class TellMeMoreFragment : Fragment(R.layout.fragment_tell_me_more) {
     private var pttAnimation: Animator? = null
     private lateinit var mediaRecorder: MediaRecorder
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.onCreate(requireActivity().cacheDir.absolutePath)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         findViews(view)
 
         configureListeners()
+        configureObservers()
+    }
+
+    private fun configureObservers() {
+        viewModel.currentFileData.observe(viewLifecycleOwner) {
+            startRecording(it)
+        }
+        viewModel.currentText.observe(viewLifecycleOwner) {
+            tvTitle.text = it.title
+            tvSubtitle.text = it.text
+        }
+        viewModel.currentTextPosition.observe(viewLifecycleOwner) {
+            tvTextCounter.text = "Текст ${it.count} из ${it.maxCount}"
+        }
+        viewModel.navigation.observe(viewLifecycleOwner) {
+            navController.navigate(it)
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -55,7 +79,7 @@ class TellMeMoreFragment : Fragment(R.layout.fragment_tell_me_more) {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     animateExp()
-                    startRecording()
+                    viewModel.onStartRecordingClicked()
                     true
                 }
                 MotionEvent.ACTION_UP -> {
@@ -73,6 +97,9 @@ class TellMeMoreFragment : Fragment(R.layout.fragment_tell_me_more) {
         vInnerCircle = root.findViewById(R.id.iv_round_inner)
         vOuterCircle = root.findViewById(R.id.iv_round_outer)
         recorderView = root.findViewById(R.id.adv_recorder)
+        tvTextCounter = root.findViewById(R.id.tv_counter)
+        tvTitle = root.findViewById(R.id.tv_title)
+        tvSubtitle = root.findViewById(R.id.tv_subtitle)
     }
 
     private fun calculateSizes() {
@@ -123,17 +150,17 @@ class TellMeMoreFragment : Fragment(R.layout.fragment_tell_me_more) {
         pttAnimation = anim
     }
 
-    private fun initMediaRecorder() {
+    private fun initMediaRecorder(file: File) {
         mediaRecorder = MediaRecorder()
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-        mediaRecorder.setOutputFile(tellMeMoreFile.absolutePath)
+        mediaRecorder.setOutputFile(file.absolutePath)
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
         mediaRecorder.prepare()
     }
 
-    private fun startRecording() {
-        initMediaRecorder()
+    private fun startRecording(file: File) {
+        initMediaRecorder(file)
         startTimer()
         mediaRecorder.start()
     }
@@ -152,11 +179,8 @@ class TellMeMoreFragment : Fragment(R.layout.fragment_tell_me_more) {
     private fun stopRecording() {
         mediaRecorder.stop()
         endTimer()
-        navController.navigate(
-            TellMeMoreFragmentDirections.actionTellMeMoreFragmentToListenFragment(
-                fileAbsolutePath = tellMeMoreFile.absolutePath
-            )
-        )
+        recorderView.recreate()
+        viewModel.onNewFileReady()
     }
 
     private fun endTimer() {

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/introFragment">
+
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.example.language.onboarding.fragments.IntroFragment"
+        android:label="IntroFragment"
+        tools:layout="@layout/fragment_intro">
+        <action
+            android:id="@+id/action_introFragment_to_IKnowMyLevelFragment"
+            app:destination="@id/IKnowMyLevelFragment" />
+        <action
+            android:id="@+id/action_introFragment_to_tellMeMoreFragment"
+            app:destination="@id/tellMeMoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tellMeMoreFragment"
+        android:name="com.example.language.onboarding.fragments.TellMeMoreFragment"
+        android:label="TellMeMoreFragment"
+        tools:layout="@layout/fragment_tell_me_more">
+        <action
+            android:id="@+id/action_tellMeMoreFragment_to_listenFragment"
+            app:destination="@id/listenFragment">
+            <argument
+                android:name="file_absolute_path"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/onboardingFinalFragment"
+        android:name="com.example.language.onboarding.fragments.OnboardingFinalFragment"
+        android:label="OnboardingFinalFragment"
+        tools:layout="@layout/fragment_onboarding_final">
+        <action
+            android:id="@+id/action_onboardingFinalFragment_to_chooseTopicsFragment"
+            app:destination="@id/chooseTopicsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listenFragment"
+        android:name="com.example.language.onboarding.fragments.ListenFragment"
+        android:label="ListenFragment"
+        tools:layout="@layout/fragment_listen_tell_me_more">
+
+        <argument
+            android:name="file_absolute_path"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_listenFragment_to_readAloudFragment"
+            app:destination="@id/readAloudFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/IKnowMyLevelFragment"
+        android:name="com.example.language.onboarding.fragments.IKnowMyLevelFragment"
+        android:label="IKnowMyLevelFragment"
+        tools:layout="@layout/fragment_i_know_my_level">
+        <action
+            android:id="@+id/action_IKnowMyLevelFragment_to_chooseTopicsFragment"
+            app:destination="@id/chooseTopicsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseTopicsFragment"
+        android:name="com.example.language.onboarding.fragments.ChooseTopicsFragment"
+        android:label="ChooseTopicsFragment"
+        tools:layout="@layout/fragment_choose_topics" />
+    <fragment
+        android:id="@+id/readAloudFragment"
+        android:name="com.example.language.onboarding.fragments.ReadAloudFragment"
+        android:label="ReadAloudFragment"
+        tools:layout="@layout/fragment_read_aloud">
+        <action
+            android:id="@+id/action_readAloudFragment_to_onboardingFinalFragment"
+            app:destination="@id/onboardingFinalFragment" />
+    </fragment>
+</navigation>
