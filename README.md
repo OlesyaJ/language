@@ -50,7 +50,7 @@ example, placing them into `assets`.
 
 <img src="images/exampledemo4.jpg" width="50%" height="50%" />
 
-<img src="images/exampledemo3.jpg" />
+<img src="images/exampledemo3.png" />
 
 ### Step 3. Install and run the app
 
