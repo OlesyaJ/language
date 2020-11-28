@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="36dp"
         android:layout_marginTop="72dp"
-        android:text="Привет, меня зовут Лиам!\nЯ помогу тебе заговорить на английском языке"
+        android:text="Hey my name is Liam!\nI will be your friend in your English progress path."
         android:textColor="#3d3d3d"
         android:textSize="24sp"
         android:textStyle="bold"
