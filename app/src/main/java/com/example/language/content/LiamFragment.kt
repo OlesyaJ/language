@@ -9,6 +9,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +41,13 @@ class LiamFragment : Fragment(R.layout.fragment_liam) {
 
         findViews(view)
         configureListeners()
+        configureObservers()
+    }
+
+    private fun configureObservers() {
+        viewModel.message.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, LENGTH_LONG).show()
+        }
     }
 
     private fun findViews(root: View) {
@@ -58,16 +67,16 @@ class LiamFragment : Fragment(R.layout.fragment_liam) {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun configureListeners() {
-        btnPushToSpeak.setOnTouchListener { v, event ->
+        btnPushToSpeak.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     animateExp()
-                    startRecording(File(requireActivity().cacheDir, "test.mp3"))
+                    viewModel.onStartRecordingClicked()
                     true
                 }
                 MotionEvent.ACTION_UP -> {
                     animateCol()
-                    stopRecording()
+                    viewModel.onStopRecordingClicked()
                     true
                 }
                 else -> false

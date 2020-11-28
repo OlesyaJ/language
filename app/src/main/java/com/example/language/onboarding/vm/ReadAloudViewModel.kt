@@ -19,7 +19,11 @@ class ReadAloudViewModel : ViewModel() {
         TextToRead(2, "Read phrase", "Doing something poorly in order to save time or money"),
         TextToRead(3, "Read phrase", "Thanks so much for cooking dinner. I really appreciate it."),
         TextToRead(4, "Read phrase", "Excuse me sir, you dropped your wallet."),
-        TextToRead(5, "Read phrase", "I’m not sure if we should paint the room yellow or blue. What do you think?")
+        TextToRead(
+            5,
+            "Read phrase",
+            "I’m not sure if we should paint the room yellow or blue. What do you think?"
+        )
     )
 
     private val _currentTextPosition = MutableLiveData<TextPosition>()

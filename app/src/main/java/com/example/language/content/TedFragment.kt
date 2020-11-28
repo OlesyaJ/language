@@ -1,23 +1,17 @@
 package com.example.language.content
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.Fragment
 import com.example.language.R
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerFragment
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 
 class TedFragment : Fragment(R.layout.fragment_ted), YouTubePlayer.OnInitializedListener {
 
     private lateinit var youtube: YouTubePlayerSupportFragmentX
     private lateinit var player: YouTubePlayer
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,14 +37,11 @@ class TedFragment : Fragment(R.layout.fragment_ted), YouTubePlayer.OnInitialized
         p2: Boolean
     ) {
         this.player = player
-        player.cueVideo("https://www.youtube.com/watch?v=3VTsIju1dLI")
-        Toast.makeText(requireContext(), "success", LENGTH_SHORT).show()
+        player.cueVideo("3VTsIju1dLI")
     }
 
     override fun onInitializationFailure(
         p0: YouTubePlayer.Provider,
         p1: YouTubeInitializationResult
-    ) {
-        Toast.makeText(requireContext(), "failure", LENGTH_SHORT).show()
-    }
+    ) = Unit
 }
