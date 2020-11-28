@@ -65,7 +65,11 @@
         android:id="@+id/chooseTopicsFragment"
         android:name="com.example.language.onboarding.fragments.ChooseTopicsFragment"
         android:label="ChooseTopicsFragment"
-        tools:layout="@layout/fragment_choose_topics" />
+        tools:layout="@layout/fragment_choose_topics" >
+        <action
+            android:id="@+id/action_chooseTopicsFragment_to_contentActivity"
+            app:destination="@id/contentActivity" />
+    </fragment>
     <fragment
         android:id="@+id/readAloudFragment"
         android:name="com.example.language.onboarding.fragments.ReadAloudFragment"
@@ -75,4 +79,9 @@
             android:id="@+id/action_readAloudFragment_to_onboardingFinalFragment"
             app:destination="@id/onboardingFinalFragment" />
     </fragment>
+    <activity
+        android:id="@+id/contentActivity"
+        android:name="com.example.language.content.ContentActivity"
+        android:label="ContentActivity"
+        tools:layout="@layout/activity_content" />
 </navigation>

@@ -12,6 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Language">
+
+        <meta-data
+            android:name="youtube"
+            android:value="AIzaSyDEC5Hn4BuT5biWkdb7Lf67uvv7zi8cn-Q" />
+
         <activity
             android:name=".onboarding.OnboardingAcivity"
             android:screenOrientation="portrait">
@@ -21,6 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".content.ContentActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

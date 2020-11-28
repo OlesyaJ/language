@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_nav_graph.xml"
+    app:startDestination="@id/liam">
+    <fragment
+        android:id="@+id/liam"
+        android:name="com.example.language.content.LiamFragment"
+        android:label="LiamFragment"
+        tools:layout="@layout/fragment_liam" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.language.content.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/tasks"
+        android:name="com.example.language.content.TasksFragment"
+        android:label="TasksFragment"
+        tools:layout="@layout/fragment_tasks" >
+        <action
+            android:id="@+id/action_tasks_to_tedFragment"
+            app:destination="@id/tedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tedFragment"
+        android:name="com.example.language.content.TedFragment"
+        android:label="TedFragment"
+        tools:layout="@layout/fragment_ted" />
+</navigation>

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.language.R
 import com.example.language.onboarding.data.TopicItem
+import com.google.android.material.card.MaterialCardView
 
 class TopicAdapter : RecyclerView.Adapter<TopicAdapter.ViewHolder>() {
 
@@ -40,10 +41,19 @@ class TopicAdapter : RecyclerView.Adapter<TopicAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private val mcvContent = itemView.findViewById<MaterialCardView>(R.id.mcv_content)
         private val ivImage = itemView.findViewById<ImageView>(R.id.iv_topic)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tv_topic_title)
 
         fun onBind(topicItem: TopicItem) {
+            mcvContent.setOnClickListener {
+                it.isActivated = !it.isActivated
+                if (it.isActivated) {
+                    mcvContent.strokeWidth = 10
+                } else {
+                    mcvContent.strokeWidth = 0
+                }
+            }
             Glide.with(itemView)
                 .load(topicItem.imageUrl)
                 .centerCrop()

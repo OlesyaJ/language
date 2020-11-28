@@ -1,4 +1,4 @@
-package com.example.language.onboarding.fragments
+package com.example.language.content
 
 import android.animation.Animator
 import android.animation.ValueAnimator
@@ -9,68 +9,50 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.language.R
-import com.visualizer.amplitude.AudioRecordView
+import com.example.language.content.vm.LiamViewModel
+import com.google.android.material.chip.ChipGroup
 import java.io.File
-import java.lang.Exception
-import java.util.*
 import kotlin.math.roundToInt
 
+class LiamFragment : Fragment(R.layout.fragment_liam) {
 
-class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
+    private val viewModel by viewModels<LiamViewModel>()
 
-    private val viewModel by viewModels<ReadAloudViewModel>()
-
-    private val navController by lazy { findNavController() }
-    private lateinit var currentFile: File
-
-    private var timer: Timer? = null
-
-    private lateinit var tvTitle: TextView
-    private lateinit var tvSubtitle: TextView
+    private lateinit var chipGroup: ChipGroup
+    private lateinit var rvMessages: RecyclerView
     private lateinit var btnPushToSpeak: View
     private lateinit var vInnerCircle: ImageView
     private lateinit var vOuterCircle: ImageView
-    private lateinit var recorderView: AudioRecordView
-    private lateinit var tvTextCounter: TextView
-
-    private var smallSize: Int = 0
-    private var largeSize: Int = 0
 
     private var pttAnimation: Animator? = null
     private lateinit var mediaRecorder: MediaRecorder
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.onCreate(requireActivity().cacheDir.absolutePath)
-    }
+    private var smallSize: Int = 0
+    private var largeSize: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         findViews(view)
-
         configureListeners()
-        configureObservers()
     }
 
-    private fun configureObservers() {
-        viewModel.currentFileData.observe(viewLifecycleOwner) {
-            startRecording(it)
-        }
-        viewModel.currentText.observe(viewLifecycleOwner) {
-            tvTitle.text = it.title
-            tvSubtitle.text = it.text
-        }
-        viewModel.currentTextPosition.observe(viewLifecycleOwner) {
-            tvTextCounter.text = "Текст ${it.count} из ${it.maxCount}"
-        }
-        viewModel.navigation.observe(viewLifecycleOwner) {
-            navController.navigate(it)
+    private fun findViews(root: View) {
+        chipGroup = root.findViewById(R.id.suggestion_chips)
+        rvMessages = root.findViewById(R.id.rv_messages)
+        btnPushToSpeak = root.findViewById(R.id.btn_push_to_speak)
+        vInnerCircle = root.findViewById(R.id.iv_round_inner)
+        vOuterCircle = root.findViewById(R.id.iv_round_outer)
+    }
+
+    private fun calculateSizes() {
+        if (smallSize == 0 || largeSize == 0) {
+            smallSize = vInnerCircle.measuredHeight
+            largeSize = (vOuterCircle.measuredHeight * 0.8).roundToInt()
         }
     }
 
@@ -80,7 +62,7 @@ class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     animateExp()
-                    viewModel.onStartRecordingClicked()
+                    startRecording(File(requireActivity().cacheDir, "test.mp3"))
                     true
                 }
                 MotionEvent.ACTION_UP -> {
@@ -90,23 +72,6 @@ class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
                 }
                 else -> false
             }
-        }
-    }
-
-    private fun findViews(root: View) {
-        btnPushToSpeak = root.findViewById(R.id.btn_push_to_speak)
-        vInnerCircle = root.findViewById(R.id.iv_round_inner)
-        vOuterCircle = root.findViewById(R.id.iv_round_outer)
-        recorderView = root.findViewById(R.id.adv_recorder)
-        tvTextCounter = root.findViewById(R.id.tv_counter)
-        tvTitle = root.findViewById(R.id.tv_title)
-        tvSubtitle = root.findViewById(R.id.tv_subtitle)
-    }
-
-    private fun calculateSizes() {
-        if (smallSize == 0 || largeSize == 0) {
-            smallSize = vInnerCircle.measuredHeight
-            largeSize = (vOuterCircle.measuredHeight * 0.8).roundToInt()
         }
     }
 
@@ -162,35 +127,11 @@ class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
 
     private fun startRecording(file: File) {
         initMediaRecorder(file)
-        startTimer()
         mediaRecorder.start()
-    }
-
-    private fun startTimer() {
-        timer?.cancel()
-        timer = Timer()
-        timer?.schedule(object : TimerTask() {
-            override fun run() {
-                val currentMaxAmplitude = mediaRecorder.maxAmplitude
-                try {
-                    recorderView.update(currentMaxAmplitude)
-                } catch (ex: Exception) {
-
-                }
-            }
-        }, 0, 30)
     }
 
     private fun stopRecording() {
         mediaRecorder.stop()
-        endTimer()
-        recorderView.recreate()
         viewModel.onNewFileReady()
     }
-
-    private fun endTimer() {
-        timer?.cancel()
-    }
 }
-
-
