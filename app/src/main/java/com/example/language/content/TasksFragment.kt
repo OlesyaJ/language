@@ -12,6 +12,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
     private val navController by lazy { findNavController() }
 
     private lateinit var btnTed: Button
+    private lateinit var btnRetelling: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,9 +24,13 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
         btnTed.setOnClickListener {
             navController.navigate(TasksFragmentDirections.actionTasksToTedFragment())
         }
+        btnRetelling.setOnClickListener {
+            navController.navigate(TasksFragmentDirections.actionTasksToRetellingFragment())
+        }
     }
 
     private fun initViews(root: View) {
         btnTed = root.findViewById(R.id.btn_start_ted)
+        btnRetelling = root.findViewById(R.id.btn_start_retelling)
     }
 }

@@ -18,14 +18,35 @@
         android:id="@+id/tasks"
         android:name="com.example.language.content.TasksFragment"
         android:label="TasksFragment"
-        tools:layout="@layout/fragment_tasks" >
+        tools:layout="@layout/fragment_tasks">
         <action
             android:id="@+id/action_tasks_to_tedFragment"
             app:destination="@id/tedFragment" />
+        <action
+            android:id="@+id/action_tasks_to_retellingFragment"
+            app:destination="@id/retellingFragment" />
     </fragment>
     <fragment
         android:id="@+id/tedFragment"
         android:name="com.example.language.content.TedFragment"
         android:label="TedFragment"
         tools:layout="@layout/fragment_ted" />
+    <fragment
+        android:id="@+id/retellingFragment"
+        android:name="com.example.language.content.RetellingFragment"
+        android:label="RetellingFragment"
+        tools:layout="@layout/fragment_retelling">
+        <action
+            android:id="@+id/action_retellingFragment_to_retellingResultFragment"
+            app:destination="@id/retellingResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/retellingResultFragment"
+        android:name="com.example.language.content.RetellingResultFragment"
+        android:label="RetellingResultFragment"
+        tools:layout="@layout/fragment_retelling_result">
+        <action
+            android:id="@+id/action_retellingResultFragment_to_tasks"
+            app:popUpTo="@id/tasks" />
+    </fragment>
 </navigation>

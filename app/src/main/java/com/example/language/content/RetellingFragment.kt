@@ -1,4 +1,4 @@
-package com.example.language.onboarding.fragments
+package com.example.language.content
 
 import android.animation.Animator
 import android.animation.ValueAnimator
@@ -12,33 +12,27 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.language.R
+import com.example.language.content.vm.RetellingViewModel
 import com.example.language.onboarding.vm.ReadAloudViewModel
 import com.visualizer.amplitude.AudioRecordView
 import java.io.File
-import java.lang.Exception
 import java.util.*
 import kotlin.math.roundToInt
 
-
-class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
-
-    private val viewModel by viewModels<ReadAloudViewModel>()
+class RetellingFragment : Fragment(R.layout.fragment_retelling) {
 
     private val navController by lazy { findNavController() }
-    private lateinit var currentFile: File
 
-    private var timer: Timer? = null
+    private val viewModel by viewModels<RetellingViewModel>()
 
-    private lateinit var tvTitle: TextView
-    private lateinit var tvSubtitle: TextView
     private lateinit var btnPushToSpeak: View
     private lateinit var vInnerCircle: ImageView
     private lateinit var vOuterCircle: ImageView
     private lateinit var recorderView: AudioRecordView
-    private lateinit var tvTextCounter: TextView
+
+    private var timer: Timer? = null
 
     private var smallSize: Int = 0
     private var largeSize: Int = 0
@@ -53,9 +47,7 @@ class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         findViews(view)
-
         configureListeners()
         configureObservers()
     }
@@ -63,16 +55,6 @@ class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
     private fun configureObservers() {
         viewModel.currentFileData.observe(viewLifecycleOwner) {
             startRecording(it)
-        }
-        viewModel.currentText.observe(viewLifecycleOwner) {
-            tvTitle.text = it.title
-            tvSubtitle.text = it.text
-        }
-        viewModel.currentTextPosition.observe(viewLifecycleOwner) {
-            tvTextCounter.text = "Text ${it.count} from ${it.maxCount}"
-        }
-        viewModel.navigation.observe(viewLifecycleOwner) {
-            navController.navigate(it)
         }
     }
 
@@ -100,9 +82,6 @@ class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
         vInnerCircle = root.findViewById(R.id.iv_round_inner)
         vOuterCircle = root.findViewById(R.id.iv_round_outer)
         recorderView = root.findViewById(R.id.adv_recorder)
-        tvTextCounter = root.findViewById(R.id.tv_counter)
-        tvTitle = root.findViewById(R.id.tv_title)
-        tvSubtitle = root.findViewById(R.id.tv_subtitle)
     }
 
     private fun calculateSizes() {
@@ -191,12 +170,12 @@ class ReadAloudFragment : Fragment(R.layout.fragment_read_aloud) {
         }
         endTimer()
         recorderView.recreate()
-        viewModel.onNewFileReady()
+        navController.navigate(
+            RetellingFragmentDirections.actionRetellingFragmentToRetellingResultFragment()
+        )
     }
 
     private fun endTimer() {
         timer?.cancel()
     }
 }
-
-

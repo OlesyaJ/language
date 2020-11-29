@@ -1,85 +1,59 @@
 package com.example.language.content.vm
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.yandex.speechkit.*
+import com.example.language.content.data.TextMessage
+import com.example.language.content.data.TextMessageResponse
+import com.example.language.content.network.ApiImpl
+import com.google.gson.Gson
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.schedulers.Schedulers
 
+class LiamViewModel : ViewModel() {
 
-class LiamViewModel : ViewModel(), RecognizerListener {
+    private val api = ApiImpl.api
 
-    private var recogniser: OnlineRecognizer? = null
+    private val _chatMessage = MutableLiveData<TextMessage>()
+    val chatMessage: LiveData<TextMessage> = _chatMessage
 
-    private val _message = MutableLiveData<String>()
-    val message: LiveData<String> = _message
+    private val disposables = CompositeDisposable()
 
-    @SuppressLint("MissingPermission")
-    fun onStartRecordingClicked() {
-        try {
-            val rec =
-                OnlineRecognizer.Builder(Language.ENGLISH, OnlineModel.QUERIES, this)
-                    .setDisableAntimat(false)
-                    .setEnablePunctuation(true)
-                    .build()
-            rec.prepare()
-            rec.startRecording()
-
-            recogniser = rec
-            _message.value = "It works!"
-        } catch (ex: Exception) {
-            _message.value = "Error, ex = ${ex.message}"
-        }
+    fun onCreate() {
+        disposables += api.getStartPhrase()
+            .map { TextMessage(false, it.text) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { message, exception ->
+                if (message != null) {
+                    _chatMessage.value = message
+                } else {
+                    exception.printStackTrace()
+                }
+            }
     }
 
-    @SuppressLint("MissingPermission")
-    fun onNewFileReady() {
-        val recognizer: OnlineRecognizer =
-            OnlineRecognizer.Builder(Language.ENGLISH, OnlineModel.QUERIES, this)
-                .setDisableAntimat(false)
-                .setEnablePunctuation(true)
-                .build()
-        recognizer.prepare()
-        recognizer.startRecording()
-    }
+    fun sendMessage(text: String) {
+        _chatMessage.value = TextMessage(true, text)
 
-    override fun onRecordingBegin(recognizer: Recognizer) {
-        print("")
-    }
-
-    override fun onSpeechDetected(recognizer: Recognizer) {
-        print("")
-    }
-
-    override fun onSpeechEnds(recognizer: Recognizer) {
-        print("")
-    }
-
-    override fun onRecordingDone(recognizer: Recognizer) {
-        print("")
-    }
-
-    override fun onPowerUpdated(recognizer: Recognizer, p1: Float) {
-        print("")
-    }
-
-    override fun onPartialResults(recognizer: Recognizer, recognition: Recognition, p2: Boolean) {
-        print("")
-    }
-
-    override fun onRecognitionDone(p0: Recognizer) {
-        print("")
-    }
-
-    override fun onRecognizerError(p0: Recognizer, p1: Error) {
-        print("")
-    }
-
-    override fun onMusicResults(p0: Recognizer, p1: Track) {
-        print("")
-    }
-
-    fun onStopRecordingClicked() {
-        recogniser?.stopRecording()
+        disposables += api.getAnswer(TextMessageResponse(text))
+            .map {
+                val string = it.body()?.string() ?: throw RuntimeException()
+                val response = Gson().fromJson(string, TextMessageResponse::class.java)
+                return@map if (response.text.isEmpty()) response.copy("Sorry, what?")
+                else response
+            }
+            .map { TextMessage(false, it.text) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { message, exception ->
+                if (message != null) {
+                    _chatMessage.value = message
+                } else {
+                    exception.printStackTrace()
+                }
+            }
     }
 }

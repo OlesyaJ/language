@@ -1,4 +1,4 @@
-package com.example.language.onboarding.fragments
+package com.example.language.onboarding.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
 import com.example.language.onboarding.data.TextPosition
 import com.example.language.onboarding.data.TextToRead
+import com.example.language.onboarding.fragments.ReadAloudFragmentDirections
 import java.io.File
 
 class ReadAloudViewModel : ViewModel() {
